@@ -24,7 +24,8 @@ class Monitor {
             return
         }
         this.target = country
-        bot.telegram.sendMessage(this.chatId, `establish monitoring of the ${this.target}\nnext request in ${this.wait()}ms`)
+        let time = this.wait();
+        bot.telegram.sendMessage(this.chatId, `establish monitoring of the ${this.target}\nnext request in ${new Date(time).getHours()}:${new Date(time).getMinutes()}`)
     }
     wait() {
         let target = new Date()
