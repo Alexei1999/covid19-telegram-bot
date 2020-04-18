@@ -3,8 +3,12 @@ const cheerio = require('cheerio')
 const got = require('got')
 const fs = require('fs')
 const { flag } = require('country-emoji');
+const yaml = require('js-yaml');
 
-let token = '1117097700:AAFuPFJhtcYCk8JgF0JN7IgkHgBohEXQZ5w'
+let fileContents = fs.readFileSync(__dirname + '/tokens.yaml', 'utf8');
+let data = yaml.safeLoad(fileContents);
+
+let token = data.key
 let url = 'https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data'
 const bot = new Telegraf(token)
 
@@ -16,7 +20,7 @@ let ban = 1
 let log = 0
 
 class Monitor {
-    constructor(ctx, country = 'Belarus') {
+    constructor(ctx, country = data.country) {
         this.chatId = ctx.message.chat.id
         console.log(`target country - ${country}`)
         try{
