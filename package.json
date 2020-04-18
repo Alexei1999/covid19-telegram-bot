@@ -1,0 +1,14 @@
+{
+  "name": "AlexeiRenBot",
+  "version": "0.0.1",
+  "description": "Alexei's bot",
+  "main": "index.js",
+  "author": "Alexei1999",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "country-emoji": "^1.5.3",
+    "got": "^10.7.0",
+    "telegraf": "^3.37.0"
+  }
+}
