@@ -13,6 +13,7 @@ const bound = 3
 let silent = false
 let hot = true
 let ban = 1
+let log = 0
 
 class Monitor {
     constructor(ctx, country = 'Belarus') {
@@ -24,8 +25,8 @@ class Monitor {
             return
         }
         this.target = country
-        let time = this.wait();
-        bot.telegram.sendMessage(this.chatId, `establish monitoring of the ${this.target}\nnext request in ${new Date(time).getHours()}:${new Date(time).getMinutes()}`)
+        let time = Date.now() + this.wait();
+        bot.telegram.sendMessage(this.chatId, `monitoring of ${this.target} established\nnext request in ${new Date(time).getHours()}:${new Date(time).getMinutes()}`)
     }
     wait() {
         let target = new Date()
@@ -37,7 +38,8 @@ class Monitor {
             target = new Date(year, month, day, hours).setMinutes(target.getMinutes() + 10) - Date.now();
         else
             target = new Date(year, month, day).setHours(hours + 1) - Date.now();
-        (!hot || !this.last) && console.log(`next step in ${target}ms`);
+        let time = Date.now() + target;
+        (!hot || !this.last || ++log%6==0) && console.log(`next step in ${new Date(time).getHours()}:${new Date(time).getMinutes()}`)
         this.timer = setTimeout(() => { this.check() }, target)
         return target
     }
@@ -94,6 +96,7 @@ function checkMonitors(){
     console.log('checking monitors...')
     monitors.forEach(s => {if (s.timer) console.log(`${s.target} has been removed`)})
     monitors = monitors.filter(s => s.timer)
+    log = 0;
 }
 
 bot.start((ctx) => {
