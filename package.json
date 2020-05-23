@@ -10,6 +10,7 @@
     "cheerio": "^1.0.0-rc.3",
     "country-emoji": "^1.5.3",
     "got": "^10.7.0",
+    "js-yaml": "^3.14.0",
     "telegraf": "^3.37.0"
   }
 }
