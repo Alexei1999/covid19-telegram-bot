@@ -9,7 +9,7 @@ let fileContents = fs.readFileSync(__dirname + '/tokens.yaml', 'utf8');
 let data = yaml.safeLoad(fileContents);
 
 let token = data.key
-let url = 'https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data'
+let url = '<url to wiki coronavirus_pandemic_data table>'
 const bot = new Telegraf(token)
 
 let monitors = []
@@ -69,7 +69,7 @@ class Monitor {
         try {
             const $ = await got(url).then(res => cheerio.load(res.body))
             this.writeLog('fetchData',[`cheerio-${!!$}`])
-            return $(`tr:contains("${this.target}")`).first().text().split('\n').filter(s => s).concat(Date.now())
+            return $(`<data html tag - tr, div and etc.>:contains("${this.target}")`).first().text().split('\n').filter(s => s).concat(Date.now())
         }
         catch (e) {
             console.log('I was banned on site?')
